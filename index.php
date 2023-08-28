@@ -40,7 +40,7 @@
                 <!-- End of Topbar -->
 
                 <!-- Begin Page Content -->
-                
+                <?php include "dashboard.php" ?>
                 <!-- /.container-fluid -->
 
             </div>
