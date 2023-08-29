@@ -36,6 +36,40 @@
         p {
             margin-bottom: 5px;
         }
+
+        /* Apply these styles to your textarea element */
+        textarea {
+            width: 50%;
+            /* Makes the textarea expand to the container width */
+            padding: 10px;
+            /* Adds some padding inside the textarea */
+            border: 1px solid #ccc;
+            /* Adds a border */
+            border-radius: 5px;
+            /* Rounds the corners */
+            font-size: 16px;
+            /* Sets the font size */
+            line-height: 1.4;
+            /* Adjusts line height for readability */
+        }
+
+        /* Style the textarea when it's focused (clicked) */
+        textarea:focus {
+            border-color: #007BFF;
+            /* Change border color on focus */
+            box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+            /* Add a subtle shadow */
+        }
+
+        /* Style the textarea when it's disabled */
+        textarea:disabled {
+            background-color: #f2f2f2;
+            /* Change background color when disabled */
+            cursor: not-allowed;
+            /* Change cursor style */
+        }
+
+        /* Add more styles as needed */
     </style>
 
 </head>
@@ -86,6 +120,8 @@
                     <p>Price</p>
                     <input required type="text" name="price" />
 
+                    <p>Details</p>
+                    <textarea rows="7" name="product_details" required></textarea>
 
                     <p>Category</p>
                     <select name="category_id" required>
@@ -104,8 +140,7 @@
                     </select>
 
 
-                    <p>Details</p>
-                    <textarea name="product_details" required></textarea>
+
 
 
                     <p><input required class="submit btn btn-success" name="submit" type="submit" value="Add" /></p>

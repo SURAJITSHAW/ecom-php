@@ -46,8 +46,8 @@
                         <td><?php echo $row['category_name']; ?></td>
                         <td><?php echo $row['product_details']; ?></td>
                         <td>Rs. <?php echo $row['price']; ?></td>
-                        <td><img src=" <?php echo "uploads/".$row['img_url']; ?>" alt="" width="200px"></td>
-                        <td><a href="update.php" class="btn btn-info">Edit</a></td>
+                        <td><img src=" <?php echo "uploads/" . $row['img_url']; ?>" alt="" width="200px"></td>
+                        <td><a href="update.php?id=<?php echo $row['product_id']; ?>" class="btn btn-info">Edit</a></td>
                         <td><a href="" class="btn btn-danger">Delete</a></td>
                     </tr>
 
