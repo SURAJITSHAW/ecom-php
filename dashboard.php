@@ -46,9 +46,16 @@
                         <td><?php echo $row['category_name']; ?></td>
                         <td><?php echo $row['product_details']; ?></td>
                         <td>Rs. <?php echo $row['price']; ?></td>
-                        <td><img src=" <?php echo "uploads/" . $row['img_url']; ?>" alt="" width="200px"></td>
+                        <td><img src="<?php echo "uploads/" . $row['img_url']; ?>" alt="" width="200px"></td>
                         <td><a href="update.php?id=<?php echo $row['product_id']; ?>" class="btn btn-info">Edit</a></td>
-                        <td><a href="" class="btn btn-danger">Delete</a></td>
+                        <td>
+                            <!-- Delete product -->
+                            <form action="delete.php" method="post">
+                                <input type="hidden" name="del_id" value="<?php echo $row['product_id']; ?>">
+                                <input type="hidden" name="del_img" value="<?php echo $row['img_url']; ?>">
+                                <button type="submit" name="delete" class="btn btn-danger">Delete</button>
+                            </form>
+                        </td>
                     </tr>
 
                 <?php }
