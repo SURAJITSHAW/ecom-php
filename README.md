@@ -8,11 +8,6 @@ This project is part of a job assessment that aims to evaluate your PHP developm
 - **Programming Language**: PHP
 - **Goal**: Complete a job assessment
 
-## Screenshots
-![main](/img/main.jpeg)
-![edit](/img/edit.jpeg)
-![add](/img/add.jpeg)
-
 ## Project Structure
 
 The project is organized as follows:
