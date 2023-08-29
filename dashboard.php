@@ -53,7 +53,7 @@
                             <form action="delete.php" method="post">
                                 <input type="hidden" name="del_id" value="<?php echo $row['product_id']; ?>">
                                 <input type="hidden" name="del_img" value="<?php echo $row['img_url']; ?>">
-                                <button onclick="del()" type="submit" name="delete" class="btn btn-danger">Delete</button>
+                                <button type="submit" name="delete" class="btn btn-danger">Delete</button>
                             </form>
                         </td>
                     </tr>
@@ -71,11 +71,3 @@
     } ?>
 
 </div>
-
-<script>
-    function del() {
-        if (!window.confirm('Are you sure you want to delete?')) {
-            <?php die(); ?>
-        }
-    }
-</script>

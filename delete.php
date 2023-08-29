@@ -19,3 +19,6 @@ if (isset($_POST["delete"])) {
         header('Location: index.php');
     }
 }
+else {
+    header('Location: index.php');
+}
