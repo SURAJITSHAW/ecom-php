@@ -1,46 +1,25 @@
-<form class="post-form" action="savedata.php" method="post">
+<?php
+session_start();
+include "config.php";
 
 
-    <div class="form-group">
-        <label>Name</label>
-        <input type="text" name="name" />
-    </div>
+if (isset($_POST["submit"])) {
+    $name = $_POST["name"];
+    $img = $_FILES["img"]["name"];
+    $price = $_POST["price"];
+    $category = $_POST["category_id"];
+    $details = $_POST["product_details"];
+}
 
+$sql = "INSERT INTO products(name, img_url, category_id, product_details, price ) VALUES('$name', '$img', '$category', '$details', '$price')";
 
-    <div class="form-group">
-        <label>Image</label>
-        <input type="file" name="img_url" />
-    </div>
+$result = mysqli_query($conn, $sql) or die("Query Unsuccessful.");
 
-
-    <div class="form-group">
-        <label>Details</label>
-        <input type="text" name="product_details" />
-    </div>
-    <div class="form-group">
-        <label>Price</label>
-        <input type="text" name="price" />
-    </div>
-
-
-    <div class="form-group">
-        <label>Category</label>
-        <select name="class">
-            <option value="" selected disabled>Select Category</option>
-            <?php
-            include 'config.php';
-
-            $sql = "SELECT * FROM categories";
-            $result = mysqli_query($conn, $sql) or die("Query Unsuccessful.");
-
-            while ($row = mysqli_fetch_assoc($result)) {
-            ?>
-                <option value="<?php echo $row['category_id']; ?>"><?php echo $row['category_name']; ?></option>
-
-            <?php } ?>
-        </select>
-    </div>
-
-
-    <input class="submit" type="submit" value="Save" />
-</form>
+if ($result) {
+    move_uploaded_file($_FILES['img']['tmp_name'], "uploads/". $_FILES["img"]["name"]);
+    $_SESSION['status'] = "Image Stored Successfully.";
+    header('Location: index.php');
+} else {
+    $_SESSION['status'] = "Image Stored Failed!";
+    header('Location: index.php');
+}
