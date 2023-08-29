@@ -15,7 +15,7 @@
         </div>
 
     <?php
-    unset($_SESSION['status']);
+        unset($_SESSION['status']);
     }
     include 'config.php';
 
@@ -32,7 +32,7 @@
                     <th>Category</th>
                     <th>Details</th>
                     <th>Price</th>
-                    <!-- <th>Image</th> -->
+                    <th>Image</th>
                     <th>Edit</th>
                     <th>Delete</th>
                 </tr>
@@ -46,15 +46,21 @@
                         <td><?php echo $row['category_name']; ?></td>
                         <td><?php echo $row['product_details']; ?></td>
                         <td>Rs. <?php echo $row['price']; ?></td>
-                        <!-- <td><img src="'./uploads/'+" alt=""></td> -->
-                        <td><button class="btn btn-info">Edit</button></td>
-                        <td><button class="btn btn-danger">Delete</button></td>
+                        <td><img src=" <?php echo "uploads/".$row['img_url']; ?>" alt="" width="200px"></td>
+                        <td><a href="update.php" class="btn btn-info">Edit</a></td>
+                        <td><a href="" class="btn btn-danger">Delete</a></td>
                     </tr>
 
-                <?php } ?>
+                <?php }
+
+
+                ?>
             </tbody>
         </table>
 
-    <?php } ?>
+    <?php } else {
+
+        echo "<tr><td> No Record Found</td></tr>";
+    } ?>
 
 </div>
