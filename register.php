@@ -20,17 +20,25 @@ if (isset($_POST['register'])) {
     if (mysqli_num_rows($res) > 0) {
         $showError = "An account with this email address already exists.";
     } else {
-        if ($pass == $cpass) {
-            $hash = password_hash($pass, PASSWORD_DEFAULT);
-            $sql = "INSERT INTO `users` (`fname`, `lname`, `email`, `pass`, `dt`) VALUES ('$fname', '$lname', '$email', '$hash', current_timestamp())";
-
-            $result = mysqli_query($conn, $sql);
-
-            if ($result) {
-                $showAlert = true;
-            }
+        if (strlen($pass) < 6) {
+            $showError = "Password must be at least 6 characters long.";
+        } elseif (!preg_match("/[!@#$%^&*()_+[\]{};':\"\\|,.<>\/?]+/", $pass)) {
+            $showError = "Password must contain at least one special character.";
         } else {
-            $showError = "Passwords do not match";
+            // Password is valid; you can proceed to use/store it securely.
+            // For example, you can hash and store it in a database.
+            if ($pass == $cpass) {
+                $hash = password_hash($pass, PASSWORD_DEFAULT);
+                $sql = "INSERT INTO `users` (`fname`, `lname`, `email`, `pass`, `dt`) VALUES ('$fname', '$lname', '$email', '$hash', current_timestamp())";
+    
+                $result = mysqli_query($conn, $sql);
+    
+                if ($result) {
+                    $showAlert = true;
+                }
+            } else {
+                $showError = "Passwords do not match";
+            }
         }
     }
 }
