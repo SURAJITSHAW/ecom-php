@@ -16,12 +16,13 @@ if (isset($_POST['register'])) {
     //check whether the email already exists
     $existsQuery = "SELECT email FROM users WHERE email='$email'";
     $res = mysqli_query($conn, $existsQuery);
-    
+
     if (mysqli_num_rows($res) > 0) {
         $showError = "An account with this email address already exists.";
     } else {
         if ($pass == $cpass) {
-            $sql = "INSERT INTO `users` (`fname`, `lname`, `email`, `pass`, `dt`) VALUES ('$fname', '$lname', '$email', '$pass', current_timestamp())";
+            $hash = password_hash($pass, PASSWORD_DEFAULT);
+            $sql = "INSERT INTO `users` (`fname`, `lname`, `email`, `pass`, `dt`) VALUES ('$fname', '$lname', '$email', '$hash', current_timestamp())";
 
             $result = mysqli_query($conn, $sql);
 
@@ -95,10 +96,10 @@ if (isset($_POST['register'])) {
                             <form class="user" method="post" action="">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input required name="fname" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">
+                                        <input maxlength="30" required name="fname" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input required name="lname" type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
+                                        <input required maxlength="30" name="lname" type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -106,7 +107,7 @@ if (isset($_POST['register'])) {
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input required name="pass" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
+                                        <input required maxlength="30" name="pass" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
                                     </div>
                                     <div class="col-sm-6">
                                         <input required name="cpass" type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">

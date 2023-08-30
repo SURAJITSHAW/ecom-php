@@ -9,20 +9,27 @@ if (isset($_POST['login'])) {
     $pass = $_POST['pass'];
 
 
-    $sql = "SELECT * FROM users WHERE email='$email' AND pass='$pass'";
+    $sql = "SELECT * FROM users WHERE email='$email'";
 
     $result = mysqli_query($conn, $sql);
 
 
     if (mysqli_num_rows($result) == 1) {
-        $login = true;
-        session_start();
-        $_SESSION['loggedin'] = true;
+
         while( $row = mysqli_fetch_array($result)) {
 
-            $_SESSION['username'] = $row['fname'];
+           
+            if(password_verify($pass, $row['pass'])){
+                $login = true;
+                session_start();
+                $_SESSION['username'] = $row['fname'];
+                $_SESSION['loggedin'] = true;
+                header('location: index.php');
+            } else {
+                $showError = "Invalid credentials";
+            }
         }
-        header('location: index.php');
+        
     } else {
         $showError = "Invalid credentials";
     }

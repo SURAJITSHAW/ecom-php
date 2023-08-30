@@ -1,14 +1,23 @@
-
+<?php
+if (isset($_SESSION['loggedin']) && $_SESSION['loggedin'] == true) {
+    $loggedin = true;
+} else {
+    
+    $loggedin = false;
+}
+?>
 <nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
 
 
     <div class="mr-auto">
-        <a href="login.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-2"><i class="fas fa-sign-in-alt fa-sm text-white-50"></i>
-            Login</a>
-        <a href="register.php" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm mr-2"><i class="fas fa-user-plus fa-sm text-white-50"></i>
-            Register</a>
-        <a href="logout.php" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm mr-2"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i>
-            Logout</a>
+        
+        <?php 
+
+            if($loggedin) {
+                echo '<a href="logout.php" class="d-none d-sm-inline-block btn btn-sm btn-danger shadow-sm mr-2"><i class="fas fa-sign-out-alt fa-sm text-white-50"></i>
+            Logout</a>';
+            }
+        ?>
     </div>
 
 
