@@ -1,3 +1,38 @@
+<?php
+
+$showAlert = false;
+$showError = false;
+
+if (isset($_POST['register'])) {
+    include "config.php";
+
+    $fname = $_POST['fname'];
+    $lname = $_POST['lname'];
+    $email = $_POST['email'];
+    $pass = $_POST['pass'];
+    $cpass = $_POST['cpass'];
+
+
+    $exists = false;
+
+    if (($pass == $cpass) && $exists == false) {
+        $sql = "INSERT INTO `users` (`fname`, `lname`, `email`, `pass`, `dt`) VALUES ('$fname', '$lname', '$email', '$pass', current_timestamp())";
+
+        $result = mysqli_query($conn, $sql);
+
+        if ($result) {
+            $showAlert = true;
+        }
+    } else {
+        $showError = "Passwords do not match";
+    }
+}
+
+
+?>
+
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,9 +48,7 @@
 
     <!-- Custom fonts for this template-->
     <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
-    <link
-        href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 
     <!-- Custom styles for this template-->
     <link href="css/sb-admin-2.min.css" rel="stylesheet">
@@ -23,6 +56,23 @@
 </head>
 
 <body class="bg-gradient-primary">
+
+    <?php
+
+    if ($showAlert) {
+        echo '<div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong> Your acccount is now created and you can login.
+    </div>';
+    }
+    if ($showError) {
+        echo '<div class="alert alert-danger alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error!</strong> ' . $showError . '
+    </div>';
+    }
+
+    ?>
 
     <div class="container">
 
@@ -36,34 +86,29 @@
                             <div class="text-center">
                                 <h1 class="h4 text-gray-900 mb-4">Create an Account!</h1>
                             </div>
-                            <form class="user">
+                            <form class="user" method="post" action="">
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="text" class="form-control form-control-user" id="exampleFirstName"
-                                            placeholder="First Name">
+                                        <input required name="fname" type="text" class="form-control form-control-user" id="exampleFirstName" placeholder="First Name">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="text" class="form-control form-control-user" id="exampleLastName"
-                                            placeholder="Last Name">
+                                        <input required name="lname" type="text" class="form-control form-control-user" id="exampleLastName" placeholder="Last Name">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <input type="email" class="form-control form-control-user" id="exampleInputEmail"
-                                        placeholder="Email Address">
+                                    <input required name="email" type="email" class="form-control form-control-user" id="exampleInputEmail" placeholder="Email Address">
                                 </div>
                                 <div class="form-group row">
                                     <div class="col-sm-6 mb-3 mb-sm-0">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleInputPassword" placeholder="Password">
+                                        <input required name="pass" type="password" class="form-control form-control-user" id="exampleInputPassword" placeholder="Password">
                                     </div>
                                     <div class="col-sm-6">
-                                        <input type="password" class="form-control form-control-user"
-                                            id="exampleRepeatPassword" placeholder="Repeat Password">
+                                        <input required name="cpass" type="password" class="form-control form-control-user" id="exampleRepeatPassword" placeholder="Repeat Password">
                                     </div>
                                 </div>
-                                <a href="login.html" class="btn btn-primary btn-user btn-block">
+                                <button name="register" type="submit" class="btn btn-primary btn-user btn-block">
                                     Register Account
-                                </a>
+                                </button>
                             </form>
                             <hr>
                             <div class="text-center">
