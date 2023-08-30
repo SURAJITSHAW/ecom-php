@@ -13,18 +13,24 @@ if (isset($_POST['register'])) {
     $cpass = $_POST['cpass'];
 
 
-    $exists = false;
-
-    if (($pass == $cpass) && $exists == false) {
-        $sql = "INSERT INTO `users` (`fname`, `lname`, `email`, `pass`, `dt`) VALUES ('$fname', '$lname', '$email', '$pass', current_timestamp())";
-
-        $result = mysqli_query($conn, $sql);
-
-        if ($result) {
-            $showAlert = true;
-        }
+    //check whether the email already exists
+    $existsQuery = "SELECT email FROM users WHERE email='$email'";
+    $res = mysqli_query($conn, $existsQuery);
+    
+    if (mysqli_num_rows($res) > 0) {
+        $showError = "An account with this email address already exists.";
     } else {
-        $showError = "Passwords do not match";
+        if ($pass == $cpass) {
+            $sql = "INSERT INTO `users` (`fname`, `lname`, `email`, `pass`, `dt`) VALUES ('$fname', '$lname', '$email', '$pass', current_timestamp())";
+
+            $result = mysqli_query($conn, $sql);
+
+            if ($result) {
+                $showAlert = true;
+            }
+        } else {
+            $showError = "Passwords do not match";
+        }
     }
 }
 
