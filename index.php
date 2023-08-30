@@ -1,4 +1,11 @@
-<?php session_start();  ?>
+<?php
+session_start();
+if (!isset($_SESSION['loggedin']) || $_SESSION['loggedin'] != true) {
+    header('location: login.php');
+    exit;
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -39,6 +46,11 @@
                 <!-- Topbar -->
                 <?php include "topbar.php" ?>
                 <!-- End of Topbar -->
+
+                <div class="alert alert-success alert-dismissible">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a> Welcome 🤗🤗
+                    <strong><?php echo $_SESSION['username']; ?></strong>
+                </div>
 
                 <!-- Begin Page Content -->
                 <?php include "dashboard.php" ?>

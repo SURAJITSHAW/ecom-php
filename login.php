@@ -1,3 +1,36 @@
+<?php
+
+$login = false;
+$showError = false;
+
+if (isset($_POST['login'])) {
+    include "config.php";
+    $email = $_POST['email'];
+    $pass = $_POST['pass'];
+
+
+    $sql = "SELECT * FROM users WHERE email='$email' AND pass='$pass'";
+
+    $result = mysqli_query($conn, $sql);
+
+
+    if (mysqli_num_rows($result) == 1) {
+        $login = true;
+        session_start();
+        $_SESSION['loggedin'] = true;
+        while( $row = mysqli_fetch_array($result)) {
+
+            $_SESSION['username'] = $row['fname'];
+        }
+        header('location: index.php');
+    } else {
+        $showError = "Invalid credentials";
+    }
+}
+
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -21,6 +54,23 @@
 </head>
 
 <body class="bg-gradient-primary">
+
+    <?php
+
+    if ($login) {
+        echo '<div class="alert alert-success alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Success!</strong> You logged in successfully
+    </div>';
+    }
+    if ($showError) {
+        echo '<div class="alert alert-danger alert-dismissible">
+        <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+        <strong>Error!</strong> ' . $showError . '
+    </div>';
+    }
+
+    ?>
 
     <div class="container">
 
